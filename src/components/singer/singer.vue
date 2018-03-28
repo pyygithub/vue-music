@@ -1,10 +1,13 @@
 <template>
   <div class="singer" ref="singer">
+    <list-view :data="singers">
 
+    </list-view>
   </div>
 </template>
 
 <script>
+  import ListView from '../../base/listview/listview'
   import Singer from 'common/js/singer'
   import * as singerApi from '../../api/singer';
   import {ERR_OK} from '../../api/config';
@@ -26,8 +29,7 @@
       _getSingerList() {
         singerApi.getSingerList().then((res) => {
           if(res.code === ERR_OK) {
-            this.singers = res.data.list;
-            this._normallizeSinger(this.singers);
+            this.singers = this._normallizeSinger(res.data.list);
           }
         })
       },
@@ -74,9 +76,11 @@
           return a.title.charCodeAt(0) - b.title.charCodeAt(0);
         });
 
-        console.log(ret);
         return hot.concat(ret);
       }
+    },
+    components: {
+      ListView
     }
   }
 </script>

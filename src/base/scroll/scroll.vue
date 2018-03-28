@@ -31,6 +31,10 @@
         type: Array,
         default: null
       },
+      listenScroll: {
+        type: Boolean,
+        default: false
+      }
     },
     mounted() {
       // 保证在DOM渲染完毕后初始化better-scroll
@@ -52,8 +56,9 @@
 
         // 是否派发滚动事件
         if (this.listenScroll) {
+          let _this = this;
           this.scroll.on('scroll', (pos) => {
-            this.$emit('scroll', pos)
+            _this.$emit('scroll', pos)
           })
         }
 
